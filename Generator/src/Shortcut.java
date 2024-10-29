@@ -45,14 +45,18 @@ public class Shortcut {
 		for (int i = 0; i < numGroups; i++) {
 			for (int j = 0; j < groupSize; j++) {
 				Vertex v = groups.get(i).get(j);
-				int temp = groups.get(i).get(j).getNeighbor().size();
+				int temp = v.getNeighbor().size();
 				for (int k = 0; k < y - temp; k++) {
-					int r = r1.nextInt(groupSize);
-					if (r == j || v.getNeighbor().contains(groups.get(i).get(r))
-							|| groups.get(i).get(r).getNeighbor().size() == y) {
+					int r = r1.nextInt(groupSize-1);
+					Vertex v2 = groups.get(i).get(r);
+					if (r >= j) {
+						r++;
+					}
+					if (v.getNeighbor().contains(v2)
+							|| v2.getNeighbor().size() == y) {
 						k--;
 					} else {
-						v.addNeighbor(groups.get(i).get(r));
+						v.addNeighbor(v2);
 					}
 				}
 			}
