@@ -98,6 +98,44 @@ public class Shortcut {
 		}
 
 	}
+	// Ensure no vertex is isolated
+        for (Vertex v : vertices) {
+            if (v.getNeighbor().isEmpty()) {  // If isolated
+                int groupIndex = -1;
+                for (int i = 0; i < groups.size(); i++) {
+                    if (groups.get(i).contains(v)) {
+                        groupIndex = i;
+                        break;
+                    }
+                }
+		// Attempt to connect within the group first
+                List<Vertex> group = groups.get(groupIndex);
+                for (Vertex potentialNeighbor : group) {
+                    if (!potentialNeighbor.equals(v) && !v.getNeighbor().contains(potentialNeighbor)) {
+                        v.addNeighbor(potentialNeighbor);
+                        potentialNeighbor.addNeighbor(v);
+                        break;
+                    }
+                }
+                
+                // If still isolated, connect with a vertex from another group
+                if (v.getNeighbor().isEmpty()) {
+                    int randomGroupIndex;
+                    do {
+                        randomGroupIndex = r1.nextInt(numGroups);
+                    } while (randomGroupIndex == groupIndex);  // Avoid same group
+
+                    // Pick a random vertex from another group
+                    Vertex outsideNeighbor = groups.get(randomGroupIndex).get(r1.nextInt(groups.get(randomGroupIndex).size()));
+                    v.addNeighbor(outsideNeighbor);
+                    outsideNeighbor.addNeighbor(v);
+                }
+            }
+        }
+//After the main shortcut generation, a loop checks if any vertex remains isolated.
+//If isolated, it first attempts to add a neighbor from within the same group.
+//If it still has no neighbors, it tries to connect with a vertex from a different group.
+        System.out.println("Ensured no vertex is isolated");
 
 	public String toString() {
 		String result = "" + n + "\n";
