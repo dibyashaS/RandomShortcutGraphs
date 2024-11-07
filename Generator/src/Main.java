@@ -1,20 +1,15 @@
-import java.io.FileNotFoundException;
+public class Shortcut {
+    // Your existing Shortcut code
 
-public class Main {
+    public static void main(String[] args) {
+        // Example parameters for testing
+        int n = 100;            // Total number of vertices
+        int intraGroupLinks = 3; // Number of intra-group links per vertex
+        int groupSize = 10;      // Size of each group
+        int interGroupLinks = 2; // Number of inter-group links per vertex
+        String filename = "output.txt"; // Output file name
 
-        public static void main(String[] args) throws FileNotFoundException {
-        		System.out.println("Creating the graph file");
-                        // 3 or more intra links per group
-                        
-        		Shortcut sc = new Shortcut(64, 15, 16, 1 ,"../graph.txt");
-                System.out.println(sc);
-//              NonRandom nr = new NonRandom(1024,28);                                     
-//              System.out.println(nr);                                                    
-//                                                                                         
-//              while(sc.hasNextLine()) {                                                  
-//                      String i=sc.nextLine();                                            
-//                      System.out.println(i);                                             
-//              }                                                                          
-//              sc.close();                                                                
-        }
+        // Create an instance of Shortcut
+        Shortcut shortcut = new Shortcut(n, intraGroupLinks, groupSize, interGroupLinks, filename);
+    }
 }
